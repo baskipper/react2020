@@ -6,20 +6,27 @@ const Search = () => {
     const [results, setResults] = useState([])
 
     useEffect(() => {
-        term &&
-        (async () => {
-            const {data} = await axios.get('https://en.wikipedia.org/w/api.php', {
-                params: {
-                    action: 'query',
-                    list: 'search',
-                    origin: '*',
-                    format: 'json',
-                    srsearch: term
-                }
-            })
-            setResults(data.query.search)
-        })()
-
+        let timeoutID = -1
+        console.log(results.length)
+        if(term) {
+            timeoutID = setTimeout(() => {
+                (async () => {
+                    const {data} = await axios.get('https://en.wikipedia.org/w/api.php', {
+                        params: {
+                            action: 'query',
+                            list: 'search',
+                            origin: '*',
+                            format: 'json',
+                            srsearch: term
+                        }
+                    })
+                    setResults(data.query.search)
+                })()
+            }, 500)
+        }
+        return () => {
+            clearTimeout(timeoutID)
+        }
     }, [term])
     const renderedResults = results.map(result => {
         return (
@@ -38,7 +45,7 @@ const Search = () => {
                     </div>
                     <span dangerouslySetInnerHTML={{
                         __html: result.snippet
-                    }} />
+                    }}/>
                 </div>
             </div>
         )
