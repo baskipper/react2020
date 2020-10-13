@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import Dropdown from "./Dropdown";
+import Convert from "./Convert";
 
+import key from './API_KEY.json'
+
+const API_KEY = key.translate
 const options = [
     {
         label: 'Afrikaans',
@@ -35,6 +39,12 @@ const Translate = () => {
                 options={options}
                 selected={language}
                 onSelectedChange={setLanguage}
+            />
+            <hr />
+            <h3 className='ui header'>Output</h3>
+            <Convert
+                text={text}
+                language={language}
             />
         </div>
     )
