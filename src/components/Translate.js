@@ -2,9 +2,6 @@ import React, {useState, useEffect} from 'react'
 import Dropdown from "./Dropdown";
 import Convert from "./Convert";
 
-import key from './API_KEY.json'
-
-const API_KEY = key.translate
 const options = [
     {
         label: 'Afrikaans',
