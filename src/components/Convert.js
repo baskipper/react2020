@@ -7,6 +7,17 @@ const API_KEY = key.translate
 
 const Convert = ({language, text}) => {
     const [translated, setTranslated] = useState('')
+    const [debouncedText, setDebouncedText] = useState(text)
+
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            setDebouncedText(text)
+        }, 500)
+
+        return () => {
+            clearTimeout(timerId)
+        }
+    }, [text])
 
     useEffect(() => {
         const doTranslation = async () => {
@@ -15,7 +26,7 @@ const Convert = ({language, text}) => {
                 {},
                 {
                     params: {
-                        q: text,
+                        q: debouncedText,
                         target: language.value,
                         key: API_KEY
                     }
@@ -24,7 +35,7 @@ const Convert = ({language, text}) => {
         }
 
         doTranslation()
-    }, [language, text])
+    }, [language, debouncedText])
 
     return (
         <div>
