@@ -4,4 +4,3 @@ export const selectSong = (song) => {
         payload: song
     }
 }
-
