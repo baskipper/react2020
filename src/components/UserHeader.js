@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-const UserHeader = ({fetchUser, userId, user}) => {
+const UserHeader = ({user}) => {
 
     return user ?
         (<div className='header'>{user.name}</div>)
