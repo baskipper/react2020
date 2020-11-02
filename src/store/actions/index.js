@@ -9,3 +9,13 @@ export const fetchPosts = () =>
         })
     }
 
+export const fetchUser = (userId) =>
+    async (dispatch, getState) => {
+    // console.log('looking for ', userId)
+        const response = await jsonPlaceholder.get(`/users/${userId}`)
+        dispatch({
+            type: 'FETCH_USER',
+            payload: response.data
+        })
+    }
+
